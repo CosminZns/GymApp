@@ -260,23 +260,23 @@ public class Gym implements Serializable {
 
     }
 
-    public void updateGoalWeight(int goalWeight, int iud) {
+    public void updateGoalWeight(int goalWeight, int id) {
         try {
             String sql = "update users set goal_Weight=? where idusers=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, goalWeight);
-            stmt.setInt(2, iud);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean checkGoalWeight(int iud) throws SQLException {
+    public boolean checkGoalWeight(int id) throws SQLException {
         int result = 0;
         String sql = "select goal_weight from users " + " where idusers=? ";
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setInt(1, iud);
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             result = rs.getInt("goal_weight");
@@ -285,11 +285,11 @@ public class Gym implements Serializable {
         return result > 0;
     }
 
-    public boolean checkUserWorkout(int id_user) {
+    public boolean checkUserWorkout(int id) {
         try {
             String sql = "select workouts_idworkouts from users_workouts where users_idusers=? ";
             PreparedStatement stat = con.prepareStatement(sql);
-            stat.setInt(1, id_user);
+            stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             if (rs.next()) {
                 return rs.getInt("workouts_idworkouts") != -1;
