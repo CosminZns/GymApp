@@ -1,20 +1,20 @@
-package com.Main;
+package com.cosmin.gym;
 
-import Gym.Gym;
-import Nutrition.Aliment;
+import com.cosmin.gym.model.Aliment;
+import com.cosmin.gym.model.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
-
+public class DBHelper {
+// FACUT CAMELCASE SI SCANNER
 
     static String host = "jdbc:mysql://localhost:3306/gym2";
     static String uName = "cosmin";
     static String uPass = "";
     static Connection con;
+    static Scanner sc= new Scanner(System.in);
 
     static {
         try {
@@ -24,17 +24,21 @@ public class Main {
         }
     }
 
-    static Scanner sc = new Scanner(System.in);
-
-    public static void main(String[] args) throws IOException, SQLException {
-
-        Gym gym = new Gym(createUsers());
-          gym.printLog();
-        while (true) {
-            doMenu(gym, gym.returnUserPosition());
+    public static ArrayList<User> createUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            Statement stat = con.createStatement();
+            String sql = "select * from users";
+            ResultSet rs = stat.executeQuery(sql);
+            while (rs.next()) {
+                User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("name_user"), rs.getInt("weight"), rs.getInt("goal_weight"), null, null);
+                users.add(user);
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
         }
+        return users;
     }
-
 
     public static int returnIdExercise(String name_exercise) throws SQLException {
         String sql = "select idexercise from exercise where name_exercise=?";
@@ -173,41 +177,6 @@ public class Main {
         }
         return -1;
     }
-
-
-
-    public static void showMenu() {
-        System.out.println("1.Goal");
-        System.out.println("2.Calculate your statistisc");
-        System.out.println("3.Check profile");
-        System.out.println("4.Log out");
-        System.out.println("5.Exit");
-    }
-
-    public static void doMenu(Gym gym, int position) throws SQLException {
-        showMenu();
-        int option = sc.nextInt();
-        switch (option) {
-            case 1:
-                gym.goal();
-                break;
-            case 2:
-                gym.calculateThings(position);
-                break;
-            case 3:
-                gym.checkProfile(position);
-                break;
-            case 4:
-                gym.printLog();
-                break;
-            case 5:
-                System.exit(0);
-                break;
-        }
-    }
-
-
-
     public static ArrayList<Aliment> createAliments() {
         ArrayList<Aliment> aliments = new ArrayList<>();
         try {
@@ -228,22 +197,6 @@ public class Main {
             e.printStackTrace();
         }
         return aliments;
-    }
-
-    public static ArrayList<User> createUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        try {
-            Statement stat = con.createStatement();
-            String sql = "select * from users";
-            ResultSet rs = stat.executeQuery(sql);
-            while (rs.next()) {
-                User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("name_user"), rs.getInt("weight"), rs.getInt("goal_weight"), null, null);
-                users.add(user);
-            }
-        } catch (SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return users;
     }
 
 }

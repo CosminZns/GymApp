@@ -1,6 +1,6 @@
-package Gym;
+package com.cosmin.gym;
 
-import com.Main.User;
+import com.cosmin.gym.model.User;
 
 import java.io.Serializable;
 import java.sql.*;
@@ -168,13 +168,13 @@ public class Gym implements Serializable {
 
     }
 
-    public void checkProfile(int iud) throws SQLException {
+    public void checkProfile(int id) throws SQLException {
         String name = "";
         int weight = 0;
         int goalWeight = 0;
         String sql = "select * from users where idusers=?";
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setInt(1, iud);
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             name = rs.getString("name_user");
@@ -186,14 +186,14 @@ public class Gym implements Serializable {
         System.out.println("Your weight goal is " + goalWeight);
         String sql2 = "select idusers,name_diet from users inner join users_diets on users.idusers=users_idusers inner join diets on users_diets.Diets_idDiets=diets.idDiets where idusers=?";
         PreparedStatement stat = con.prepareStatement(sql2);
-        stat.setInt(1, iud);
+        stat.setInt(1, id);
         ResultSet result = stat.executeQuery();
         if (result.next()) {
             System.out.println("Your diet is " + result.getString("name_diet"));
         }
         String sql3 = "select idusers,name_workout from users inner join users_workouts on users.idusers=users_idusers inner join workouts on users_workouts.workouts_idworkouts=workouts.idworkouts where idusers=?";
         PreparedStatement st = con.prepareStatement(sql3);
-        st.setInt(1, iud);
+        st.setInt(1, id);
         ResultSet resultSet = st.executeQuery();
         System.out.println("Your workouts are:");
         while (resultSet.next()) {

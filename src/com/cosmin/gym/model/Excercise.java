@@ -1,4 +1,4 @@
-package Gym;
+package com.cosmin.gym.model;
 
 
 public class Excercise {

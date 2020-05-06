@@ -1,7 +1,4 @@
-package com.Main;
-
-import Gym.Workout;
-import Nutrition.Diet;
+package com.cosmin.gym.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -82,11 +79,7 @@ public class User implements Serializable {
         this.weight = weight;
     }
 
-    @Override
-    public String toString() {
-        return new StringBuffer(" User Name: ").append(this.userName)
-                .append("  Name : ").append(this.name).append(" Weight : ").append(this.weight).toString();
-    }
+
 }
 
 

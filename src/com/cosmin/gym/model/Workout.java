@@ -1,4 +1,4 @@
-package Gym;
+package com.cosmin.gym.model;
 
 import java.util.List;
 

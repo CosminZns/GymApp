@@ -1,4 +1,4 @@
-package Nutrition;
+package com.cosmin.gym.model;
 
 import java.util.ArrayList;
 
@@ -6,13 +6,13 @@ public class Diet {
     private String type;
     private String name;
     private ArrayList<Aliment> diets ;
-    private int kcal;
+    private int calories;
 
 
-    public Diet(ArrayList<Aliment> diets, int kcal, String name, String type) {
+    public Diet(ArrayList<Aliment> diets, int calories, String name, String type) {
         this.name = name;
         this.diets = diets;
-        this.kcal = kcal;
+        this.calories = calories;
         this.type = type;
     }
 
@@ -20,8 +20,8 @@ public class Diet {
         return diets;
     }
 
-    public int getKcal() {
-        return kcal;
+    public int getCalories() {
+        return calories;
     }
 
     public String getName() {
