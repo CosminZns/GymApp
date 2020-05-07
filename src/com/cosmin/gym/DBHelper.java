@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DBHelper {
-// FACUT CAMELCASE SI SCANNER
+
 
     static String host = "jdbc:mysql://localhost:3306/gym2";
     static String uName = "cosmin";
@@ -40,10 +40,10 @@ public class DBHelper {
         return users;
     }
 
-    public static int returnIdExercise(String name_exercise) throws SQLException {
+    public static int returnIdExercise(String nameExercise) throws SQLException {
         String sql = "select idexercise from exercise where name_exercise=?";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setString(1, name_exercise);
+        stat.setString(1, nameExercise);
         ResultSet rs = stat.executeQuery();
         if (rs.next()) {
             return rs.getInt("idexercise");
@@ -51,10 +51,10 @@ public class DBHelper {
         return -1;
     }
 
-    public static int returnIdWorkout(String name_workout) throws SQLException {
+    public static int returnIdWorkout(String nameWorkout) throws SQLException {
         String sql = "select idworkouts from workouts where name_workout=?";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setString(1, name_workout);
+        stat.setString(1, nameWorkout);
         ResultSet rs = stat.executeQuery();
         if (rs.next()) {
             return rs.getInt("idworkouts");
@@ -63,26 +63,26 @@ public class DBHelper {
     }
 
 
-    public static void insertExerciseInWorkout(int id_exercise, int id_workout) throws SQLException {
+    public static void insertExerciseInWorkout(int idExercise, int idWorkout) throws SQLException {
         String sql = "insert into workouts_excercise (workouts_idworkouts,excercise_idexcercise) values (?,?)";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setInt(1, id_workout);
-        stat.setInt(2, id_exercise);
+        stat.setInt(1, idWorkout);
+        stat.setInt(2, idExercise);
         int rs = stat.executeUpdate();
     }
 
-    public static void insertAlimentInDiet(int id_aliment, int id_diet) throws SQLException {
+    public static void insertAlimentInDiet(int idAliment, int idDiet) throws SQLException {
         String sql = "insert into aliments_diets (aliments_idaliments,Diets_idDiets) values (?,?)";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setInt(1, id_aliment);
-        stat.setInt(2, id_diet);
+        stat.setInt(1, idAliment);
+        stat.setInt(2, idDiet);
         int rs = stat.executeUpdate();
     }
 
-    public static int returnIdAliment(String name_aliment) throws SQLException {
+    public static int returnIdAliment(String nameAliment) throws SQLException {
         String sql = "select idaliments from aliments where name_aliments=?";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setString(1, name_aliment);
+        stat.setString(1, nameAliment);
         ResultSet rs = stat.executeQuery();
         if (rs.next()) {
             return rs.getInt("idaliments");
@@ -167,10 +167,10 @@ public class DBHelper {
 
 
 
-    public static int returnIdDiet(String name_diet) throws SQLException {
+    public static int returnIdDiet(String nameDiet) throws SQLException {
         String sql = "select idDiets from diets where name_diet=?";
         PreparedStatement stat = con.prepareStatement(sql);
-        stat.setString(1, name_diet);
+        stat.setString(1, nameDiet);
         ResultSet rs = stat.executeQuery();
         if (rs.next()) {
             return rs.getInt("idDiets");
